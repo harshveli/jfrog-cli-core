@@ -17,7 +17,9 @@ import (
 )
 
 // Search for docker API version format pattern e.g. 1.40
-var ApiVersionRegex = regexp.MustCompile(`^(\d+)\.(\d+)$`)
+// The following modified pattern will validate the Docker version like "4.9.4-rhel". We can further improve this by using w instead of d in the initial place as well, something like regexp.MustCompile('^(\w+)\.(\w+)\.(\w+[-\w]*)$')
+// In the below one, we will be checking the -rhel part optionally. Hence 1.4.1 would also comply with the below expresseion. 
+var ApiVersionRegex = regexp.MustCompile('^(\d+)\.(\d+)\.(\w+[-\w]*)$')
 
 // Docker API version 1.31 is compatible with Docker version 17.07.0, according to https://docs.docker.com/engine/api/#api-version-matrix
 const MinSupportedApiVersion string = "1.31"
